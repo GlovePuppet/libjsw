@@ -195,7 +195,9 @@ jc_jsprops_struct *JCJSPropsNew(
 	    GTK_OBJECT(w), "delete_event",
 	    GTK_SIGNAL_FUNC(JCJSPropsDeleteEventCB), jsp
 	);
+#if 0
 	gtk_accel_group_attach(accelgrp, GTK_OBJECT(w));
+#endif
 	gtk_container_border_width(GTK_CONTAINER(w), 0);
 
 	/* Main vbox */

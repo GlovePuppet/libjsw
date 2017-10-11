@@ -834,13 +834,8 @@ static gint PUListMotionNotifyEventCB(
 		    button->time = motion->time;
 		    button->x = motion->x;
 		    button->y = motion->y;
-		    button->pressure = 1.0;
-		    button->xtilt = 0.0;
-		    button->ytilt = 0.0;
 		    button->button = 1;		/* GDK_BUTTON1 */
 		    button->state = mask;
-		    button->source = 0;
-		    button->deviceid = 0;
 		    button->x_root = 0;
 		    button->y_root = 0;
 
@@ -1921,9 +1916,9 @@ static void PUListBoxDraw(PopupListBox *box)
 	 */
 	if(item_style == NULL)
 	    item_style = style;
-	font = item_style->font;
+	font = gtk_style_get_font(item_style);
 	if(font == NULL)
-	    font = style->font;
+	    font = gtk_style_get_font(style);
 	if(font == NULL)
 	    return;
 		   
@@ -3068,16 +3063,16 @@ const gchar *PUListMapQuery(
 	if(list->shadow_style != PULIST_SHADOW_NONE)
 	{
 	    gtk_widget_set_usize(shadow, width, height);
-	    gtk_widget_popup(
-		shadow,
-		x + PULIST_SHADOW_OFFSET_X,
-		y + PULIST_SHADOW_OFFSET_Y
-	    );
+		gtk_widget_set_uposition(shadow,
+			x + PULIST_SHADOW_OFFSET_X,
+			y + PULIST_SHADOW_OFFSET_Y);
+		gtk_widget_show(shadow);
 	}
 
 	/* Map the Popup List */
 	gtk_widget_set_usize(toplevel, width, height);
-	gtk_widget_popup(toplevel, x, y);
+	gtk_widget_set_uposition(toplevel, x, y);
+	gtk_widget_show(toplevel);
 	list->flags |= POPUP_LIST_MAPPED;
 
 	/* Set up the popup list's GtkCList for dragged selecting */
@@ -3609,7 +3604,7 @@ GtkWidget *PUListBoxNew(
 	    if(style != NULL)
 	    {
 		const gint frame_border = 4;
-		GdkFont *font = style->font;
+		GdkFont *font = gtk_style_get_font(style);
 		if(font != NULL)
 		    _height = font->ascent + font->descent +
 			(2 * frame_border);

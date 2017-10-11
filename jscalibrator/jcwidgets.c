@@ -1163,8 +1163,9 @@ GtkWidget *JCCreateMenuBar(jc_struct *jc)
 	);
 
 	/* Attach the new accelerator group to the window */
+#if 0	
 	gtk_accel_group_attach(accel_group, GTK_OBJECT(jc->toplevel));
-
+#endif
 	/* Create the menu bar widget using the item factory */
 	menubar = gtk_item_factory_get_widget(item_factory, "<main>");
 
@@ -1381,7 +1382,9 @@ gint JCCreateWidgets(jc_struct *jc, gint argc, gchar **argv)
 	w = gtk_hpaned_new();
 	gtk_box_pack_start(GTK_BOX(parent), w, TRUE, TRUE, 0);
 	gtk_paned_set_position(GTK_PANED(w), 480);
+#if 0
 	gtk_paned_set_handle_size(GTK_PANED(w), 10);
+#endif
 	gtk_paned_set_gutter_size(GTK_PANED(w), 12);
 	gtk_widget_show(w);
 	parent2 = w;

@@ -52,7 +52,7 @@ LIBVER = 1.5.8
 #
 
 CFLAGS = -Wall -O2 -g
-CFLAGS += -ffast-math
+CFLAGS += -ffast-math -fPIC
 
 CPPFLAGS = -D__cplusplus
 

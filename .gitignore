@@ -1,0 +1,8 @@
+*.o
+jscalibrator/jscalibrator
+jswdemos/axis
+jswdemos/basic
+jswdemos/button
+jswdemos/listing
+jswdemos/waitbtn
+libjsw/libjsw.so*

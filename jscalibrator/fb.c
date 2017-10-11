@@ -3089,7 +3089,7 @@ static void FileBrowserObjectUpdateValues(
 	/* Get the list's GtkStyle and GdkFont */
 	w = fb->list_da;
 	style = (w != NULL) ? gtk_widget_get_style(w) : NULL;
-	font = (style != NULL) ? style->font : NULL;
+	font = (style != NULL) ? gtk_style_get_font(style) : NULL;
 
 	/* Get the icon index based on the object's path and statistics */
 	o->icon_num = icon_num = FileBrowserMatchIconNumFromPath(
@@ -4042,7 +4042,7 @@ static void FileBrowserListHeaderDraw(FileBrowser *fb)
 	if((style == NULL) || (width <= 0) || (height <= 0))
 		return;
 
-	font = style->font;
+	font = gtk_style_get_font(style);
 	if(font == NULL)
 		return;
 
@@ -4229,7 +4229,7 @@ static void FileBrowserListDraw(FileBrowser *fb)
 	if((style == NULL) || (width <= 0) || (height <= 0))
 		return;
 
-	font = style->font;
+	font = gtk_style_get_font(style);
 	if(font == NULL)
 		return;
 
@@ -4865,7 +4865,8 @@ static void FileBrowserListDraw(FileBrowser *fb)
 		gtk_paint_focus(
 			style,
 			(GdkWindow *)drawable,
-			NULL,				/* Entire area */
+			GTK_STATE_NORMAL,				/* Entire area */
+			NULL,
 			w,
 			NULL,				/* No detail */
 			0, 0,
@@ -5146,15 +5147,15 @@ static void FileBrowserNewDirectory(FileBrowser *fb)
 		return;
 
 #if defined(PROG_LANGUAGE_SPANISH)
-# define TITLE_MKDIR_FAILED	"Cree Guía Nueva Fallada"
+# define TITLE_MKDIR_FAILED	"Cree Gu?a Nueva Fallada"
 #elif defined(PROG_LANGUAGE_FRENCH)
-# define TITLE_MKDIR_FAILED	"Créer Le Nouvel Annuaire Echoué"
+# define TITLE_MKDIR_FAILED	"Cr?er Le Nouvel Annuaire Echou?"
 #elif defined(PROG_LANGUAGE_GERMAN)
 # define TITLE_MKDIR_FAILED	"Schaffen Sie Neues Versagten Verzeichnis"
 #elif defined(PROG_LANGUAGE_ITALIAN)
 # define TITLE_MKDIR_FAILED	"Creare L'Elenco Nuovo Fallito"
 #elif defined(PROG_LANGUAGE_DUTCH)
-# define TITLE_MKDIR_FAILED	"Creëer Nieuwe Gids Verzuimde"
+# define TITLE_MKDIR_FAILED	"Cre?er Nieuwe Gids Verzuimde"
 #elif defined(PROG_LANGUAGE_PORTUGUESE)
 # define TITLE_MKDIR_FAILED	"Crie Novo Guia Fracassado"
 #elif defined(PROG_LANGUAGE_NORWEGIAN)
@@ -6219,7 +6220,7 @@ static void FileBrowserRenameFPromptCB(gpointer data, const gchar *value)
 #if defined(PROG_LANGUAGE_SPANISH)
 # define TITLE_RENAME_FAILED     "Reagrupe Fallado"
 #elif defined(PROG_LANGUAGE_FRENCH)
-# define TITLE_RENAME_FAILED     "Renommer Echoué"
+# define TITLE_RENAME_FAILED     "Renommer Echou?"
 #elif defined(PROG_LANGUAGE_GERMAN)
 # define TITLE_RENAME_FAILED     "Benennen Sie Versagt Um"
 #elif defined(PROG_LANGUAGE_ITALIAN)
@@ -6256,12 +6257,12 @@ static void FileBrowserRenameFPromptCB(gpointer data, const gchar *value)
 		gchar *msg = g_strdup_printf(
 #if defined(PROG_LANGUAGE_SPANISH)
 "El nombre nuevo \"%s\" contiene deliminators de\n\
-guía de '%c' que no se permiten en un nombre de objeto."
+gu?a de '%c' que no se permiten en un nombre de objeto."
 #elif defined(PROG_LANGUAGE_FRENCH)
 "Le nouveau \"%s\" de nom contient deliminators d'annuaire\n\
 de '%c' qui ne sont pas permis dans un nom de l'objet."
 #elif defined(PROG_LANGUAGE_GERMAN)
-"Der neu \"%s\" enthält '%c' Verzeichnis deliminators, das\n\
+"Der neu \"%s\" enth?lt '%c' Verzeichnis deliminators, das\n\
 im Namen eines Objekts nicht erlaubt wird."
 #elif defined(PROG_LANGUAGE_ITALIAN)
 "Lo \"%s\" di nome nuovo contiene il deliminators\n\
@@ -6271,7 +6272,7 @@ di elenco di '%c' che non sono lasciati in un nome dell'oggetto."
 die welk in de naam van een voorwerp niet toegestaan is."
 #elif defined(PROG_LANGUAGE_PORTUGUESE)
 "O novo \"%s\" de nome contem deliminators de guia\n\
-de '%c' que nao são permitidos num nome do objeto."
+de '%c' que nao s?o permitidos num nome do objeto."
 #elif defined(PROG_LANGUAGE_NORWEGIAN)
 "Den nye navne \"%s\" inneholder '%c' katalog deliminators\n\
 som ikke tillater i et objekts navn."
@@ -6504,9 +6505,9 @@ static void FileBrowserCHModFPromptCB(gpointer data, const gchar *value)
 #if defined(PROG_LANGUAGE_SPANISH)
 # define TITLE_CHMOD_FAILED     "Cambie El Modo Fallado"
 #elif defined(PROG_LANGUAGE_FRENCH)
-# define TITLE_CHMOD_FAILED     "Changer Le Mode A échoué"
+# define TITLE_CHMOD_FAILED     "Changer Le Mode A ?chou?"
 #elif defined(PROG_LANGUAGE_GERMAN)
-# define TITLE_CHMOD_FAILED     "Ändern Sie Versagten Modus"
+# define TITLE_CHMOD_FAILED     "?ndern Sie Versagten Modus"
 #elif defined(PROG_LANGUAGE_ITALIAN)
 # define TITLE_CHMOD_FAILED     "Cambiare Il Modo Fallito"
 #elif defined(PROG_LANGUAGE_DUTCH)
@@ -6922,9 +6923,9 @@ static void FileBrowserDelete(FileBrowser *fb)
 #if defined(PROG_LANGUAGE_SPANISH)
 # define TITLE_DELETE_FAILED	"Borre Fallado"
 #elif defined(PROG_LANGUAGE_FRENCH)
-# define TITLE_DELETE_FAILED	"Effacer Echoué"
+# define TITLE_DELETE_FAILED	"Effacer Echou?"
 #elif defined(PROG_LANGUAGE_GERMAN)
-# define TITLE_DELETE_FAILED	"Löschen Sie Versagt"
+# define TITLE_DELETE_FAILED	"L?schen Sie Versagt"
 #elif defined(PROG_LANGUAGE_ITALIAN)
 # define TITLE_DELETE_FAILED	"Cancellare Fallito"
 #elif defined(PROG_LANGUAGE_DUTCH)
@@ -6971,17 +6972,17 @@ static void FileBrowserDelete(FileBrowser *fb)
 			if(FileBrowserIsLPathDirectory(o->path))
 				msg = g_strdup_printf(
 #if defined(PROG_LANGUAGE_SPANISH)
-"¿Usted está seguro que usted quiere borrar \"%s\"?"
+"?Usted est? seguro que usted quiere borrar \"%s\"?"
 #elif defined(PROG_LANGUAGE_FRENCH)
-"Etes-vous sûr que vous voulez effacer \"%s\"?"
+"Etes-vous s?r que vous voulez effacer \"%s\"?"
 #elif defined(PROG_LANGUAGE_GERMAN)
-"Sind sie sicher sie \"%s\" wollen löschen?"
+"Sind sie sicher sie \"%s\" wollen l?schen?"
 #elif defined(PROG_LANGUAGE_ITALIAN)
 "Lei sono sicuro che lei vuole cancellare \"%s\"?"
 #elif defined(PROG_LANGUAGE_DUTCH)
 "Bent u zeker u \"%s\" wil schrappen?"
 #elif defined(PROG_LANGUAGE_PORTUGUESE)
-"Estão seguro quer anular \"%s\"?"
+"Est?o seguro quer anular \"%s\"?"
 #elif defined(PROG_LANGUAGE_NORWEGIAN)
 "Er De sikker De stryker \"%s\"?"
 #else
@@ -6995,17 +6996,17 @@ Including any contents within that directory."
 			else
 				msg = g_strdup_printf(
 #if defined(PROG_LANGUAGE_SPANISH)
-"¿Usted está seguro que usted quiere borrar \"%s\"?"
+"?Usted est? seguro que usted quiere borrar \"%s\"?"
 #elif defined(PROG_LANGUAGE_FRENCH)
-"Etes-vous sûr que vous voulez effacer \"%s\"?"
+"Etes-vous s?r que vous voulez effacer \"%s\"?"
 #elif defined(PROG_LANGUAGE_GERMAN)
-"Sind sie sicher sie \"%s\" wollen löschen?"
+"Sind sie sicher sie \"%s\" wollen l?schen?"
 #elif defined(PROG_LANGUAGE_ITALIAN)
 "Lei sono sicuro che lei vuole cancellare \"%s\"?"
 #elif defined(PROG_LANGUAGE_DUTCH)
 "Bent u zeker u \"%s\" wil schrappen?"
 #elif defined(PROG_LANGUAGE_PORTUGUESE)
-"Estão seguro quer anular \"%s\"?"
+"Est?o seguro quer anular \"%s\"?"
 #elif defined(PROG_LANGUAGE_NORWEGIAN)
 "Er De sikker De stryker \"%s\"?"
 #else
@@ -7024,11 +7025,11 @@ Including any contents within that directory."
 	{
 		msg = g_strdup_printf(
 #if defined(PROG_LANGUAGE_SPANISH)
-"¿Borra %i objetos escogidos?"
+"?Borra %i objetos escogidos?"
 #elif defined(PROG_LANGUAGE_FRENCH)
 "Efface %i objets choisis?"
 #elif defined(PROG_LANGUAGE_GERMAN)
-"Löschen Sie %i ausgewählte Objekte?"
+"L?schen Sie %i ausgew?hlte Objekte?"
 #elif defined(PROG_LANGUAGE_ITALIAN)
 "Cancella %i oggetti scelti?"
 #elif defined(PROG_LANGUAGE_DUTCH)
@@ -7052,7 +7053,7 @@ Including any contents within that directory."
 #elif defined(PROG_LANGUAGE_FRENCH)
 "Confirmer Effacer"
 #elif defined(PROG_LANGUAGE_GERMAN)
-"Bestätigen Sie Löscht"
+"Best?tigen Sie L?scht"
 #elif defined(PROG_LANGUAGE_ITALIAN)
 "Confermare Cancellare"
 #elif defined(PROG_LANGUAGE_DUTCH)
@@ -9873,7 +9874,7 @@ gint FileBrowserInit(void)
 
 	w = gtk_label_new(
 #if defined(PROG_LANGUAGE_SPANISH)
-"Ubicación:"
+"Ubicaci?n:"
 #elif defined(PROG_LANGUAGE_FRENCH)
 "Emplacement:"
 #elif defined(PROG_LANGUAGE_GERMAN)
@@ -9949,7 +9950,7 @@ gint FileBrowserInit(void)
 	GUISetWidgetTip(
 		w,
 #if defined(PROG_LANGUAGE_SPANISH)
-"La Guía Nueva"
+"La Gu?a Nueva"
 #elif defined(PROG_LANGUAGE_FRENCH)
 "Nouvel Annuaire"
 #elif defined(PROG_LANGUAGE_GERMAN)
@@ -10013,7 +10014,7 @@ gint FileBrowserInit(void)
 #if defined(PROG_LANGUAGE_SPANISH)
 "Refresque"
 #elif defined(PROG_LANGUAGE_FRENCH)
-"Rafraîchir"
+"Rafra?chir"
 #elif defined(PROG_LANGUAGE_GERMAN)
 "Erfrischen Sie"
 #elif defined(PROG_LANGUAGE_ITALIAN)
@@ -10067,17 +10068,17 @@ gint FileBrowserInit(void)
 	GUISetWidgetTip(
 		w,
 #if defined(PROG_LANGUAGE_SPANISH)
-"Listar De Estándar"
+"Listar De Est?ndar"
 #elif defined(PROG_LANGUAGE_FRENCH)
-"Enumérer De Norme"
+"Enum?rer De Norme"
 #elif defined(PROG_LANGUAGE_GERMAN)
-"Standard Aufführen"
+"Standard Auff?hren"
 #elif defined(PROG_LANGUAGE_ITALIAN)
 "Elencare Di Norma"
 #elif defined(PROG_LANGUAGE_DUTCH)
 "Standaard Opsommen"
 #elif defined(PROG_LANGUAGE_PORTUGUESE)
-"O Alistamento De Padrão"
+"O Alistamento De Padr?o"
 #elif defined(PROG_LANGUAGE_NORWEGIAN)
 "Normal Listing"
 #else
@@ -10101,9 +10102,9 @@ gint FileBrowserInit(void)
 #if defined(PROG_LANGUAGE_SPANISH)
 "Listar Detallado"
 #elif defined(PROG_LANGUAGE_FRENCH)
-"Enumérer Détaillé"
+"Enum?rer D?taill?"
 #elif defined(PROG_LANGUAGE_GERMAN)
-"Ausführliches Aufführen"
+"Ausf?hrliches Auff?hren"
 #elif defined(PROG_LANGUAGE_ITALIAN)
 "Elencare Dettagliato"
 #elif defined(PROG_LANGUAGE_DUTCH)
@@ -10134,9 +10135,9 @@ gint FileBrowserInit(void)
 #if defined(PROG_LANGUAGE_SPANISH)
 "Listar Detallado"
 #elif defined(PROG_LANGUAGE_FRENCH)
-"Enumérer Détaillé"
+"Enum?rer D?taill?"
 #elif defined(PROG_LANGUAGE_GERMAN)
-"Ausführliches Aufführen"
+"Ausf?hrliches Auff?hren"
 #elif defined(PROG_LANGUAGE_ITALIAN)
 "Elencare Dettagliato"
 #elif defined(PROG_LANGUAGE_DUTCH)
@@ -10463,7 +10464,7 @@ gint FileBrowserInit(void)
 		icon = (guint8 **)icon_folder_closed_20x20_xpm;
 		label =
 #if defined(PROG_LANGUAGE_SPANISH)
-"La Guía Nueva"
+"La Gu?a Nueva"
 #elif defined(PROG_LANGUAGE_FRENCH)
 "Nouvel Annuaire"
 #elif defined(PROG_LANGUAGE_GERMAN)
@@ -10519,13 +10520,13 @@ gint FileBrowserInit(void)
 #elif defined(PROG_LANGUAGE_FRENCH)
 "Changer Des Permissions"
 #elif defined(PROG_LANGUAGE_GERMAN)
-"Ändern Sie Erlaubnis"
+"?ndern Sie Erlaubnis"
 #elif defined(PROG_LANGUAGE_ITALIAN)
 "Cambiare I Permessi"
 #elif defined(PROG_LANGUAGE_DUTCH)
 "Verandeer Toestemmingen"
 #elif defined(PROG_LANGUAGE_PORTUGUESE)
-"Mude Permissões"
+"Mude Permiss?es"
 #elif defined(PROG_LANGUAGE_NORWEGIAN)
 "Forandr Permissions"
 #else
@@ -10545,7 +10546,7 @@ gint FileBrowserInit(void)
 #elif defined(PROG_LANGUAGE_FRENCH)
 "Effacer"
 #elif defined(PROG_LANGUAGE_GERMAN)
-"Löschen Sie"
+"L?schen Sie"
 #elif defined(PROG_LANGUAGE_ITALIAN)
 "Cancellare"
 #elif defined(PROG_LANGUAGE_DUTCH)
@@ -10573,7 +10574,7 @@ gint FileBrowserInit(void)
 #elif defined(PROG_LANGUAGE_FRENCH)
 "Choisir Tout"
 #elif defined(PROG_LANGUAGE_GERMAN)
-"Wählen Sie Alle Aus"
+"W?hlen Sie Alle Aus"
 #elif defined(PROG_LANGUAGE_ITALIAN)
 "Scegliere Tutto"
 #elif defined(PROG_LANGUAGE_DUTCH)
@@ -10597,7 +10598,7 @@ gint FileBrowserInit(void)
 #if defined(PROG_LANGUAGE_SPANISH)
 "Rechace Todo"
 #elif defined(PROG_LANGUAGE_FRENCH)
-"Déssélectionner Tout"
+"D?ss?lectionner Tout"
 #elif defined(PROG_LANGUAGE_GERMAN)
 "Entmarkieren Sie Alle"
 #elif defined(PROG_LANGUAGE_ITALIAN)
@@ -10621,9 +10622,9 @@ gint FileBrowserInit(void)
 		icon = NULL;
 		label =
 #if defined(PROG_LANGUAGE_SPANISH)
-"Invierta La Selección"
+"Invierta La Selecci?n"
 #elif defined(PROG_LANGUAGE_FRENCH)
-"Inverser La Sélection"
+"Inverser La S?lection"
 #elif defined(PROG_LANGUAGE_GERMAN)
 "Invertieren Sie Auswahl"
 #elif defined(PROG_LANGUAGE_ITALIAN)
@@ -10631,7 +10632,7 @@ gint FileBrowserInit(void)
 #elif defined(PROG_LANGUAGE_DUTCH)
 "Keer Keuze Om"
 #elif defined(PROG_LANGUAGE_PORTUGUESE)
-"Inverta Seleção"
+"Inverta Sele??o"
 #elif defined(PROG_LANGUAGE_NORWEGIAN)
 "Inverter Selection"
 #else
@@ -10651,7 +10652,7 @@ gint FileBrowserInit(void)
 #if defined(PROG_LANGUAGE_SPANISH)
 "Refresque"
 #elif defined(PROG_LANGUAGE_FRENCH)
-"Rafraîchir"
+"Rafra?chir"
 #elif defined(PROG_LANGUAGE_GERMAN)
 "Erfrischen Sie"
 #elif defined(PROG_LANGUAGE_ITALIAN)
@@ -10784,25 +10785,25 @@ gint FileBrowserInit(void)
 	GUISetWidgetTip(
 		w,
 #if defined(PROG_LANGUAGE_SPANISH)
-"Entre el nombre del objeto, usted puede especificar más\
- que un objeto (separa cada nombre con un ',' el carácter)"
+"Entre el nombre del objeto, usted puede especificar m?s\
+ que un objeto (separa cada nombre con un ',' el car?cter)"
 #elif defined(PROG_LANGUAGE_FRENCH)
-"Entrer le nom de l'objet, vous pouvez spécifier plus\
- qu'un objet (sépare chaque nom avec un ',' le caractère)"
+"Entrer le nom de l'objet, vous pouvez sp?cifier plus\
+ qu'un objet (s?pare chaque nom avec un ',' le caract?re)"
 #elif defined(PROG_LANGUAGE_GERMAN)
-"Tragen Sie den Namen des Objekts, Sie können angeben\
+"Tragen Sie den Namen des Objekts, Sie k?nnen angeben\
  mehr als ein Objekt ein (trennen Sie jeden Namen mit einem ',' charakter)"
 #elif defined(PROG_LANGUAGE_ITALIAN)
-"Entrare il nome dell'oggetto, lei può specificare più\
+"Entrare il nome dell'oggetto, lei pu? specificare pi?\
  di un oggetto (separa ogni nome con un ',' il carattere)"
 #elif defined(PROG_LANGUAGE_DUTCH)
 "Ga de naam van het voorwerp, u zou kunnen specificeren\
  meer than een voorwerp binnen (scheid elk naam met een ',' teken)"
 #elif defined(PROG_LANGUAGE_PORTUGUESE)
-"Entre o nome do objeto, você pode especificar mais de\
- um objeto (separa cada nome com um ',' caráter)"
+"Entre o nome do objeto, voc? pode especificar mais de\
+ um objeto (separa cada nome com um ',' car?ter)"
 #elif defined(PROG_LANGUAGE_NORWEGIAN)
-"Gå inn i navnet av objektet, De spesifiserer mere enn\
+"G? inn i navnet av objektet, De spesifiserer mere enn\
  et objekt (separere hver navn med et ',' karakter)"
 #else
 "Enter the name of the object, you may specify more than\

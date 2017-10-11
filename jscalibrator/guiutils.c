@@ -4,7 +4,11 @@
 
 #include <gtk/gtk.h>
 #include <gtk/gtkinvisible.h>
+#include <gtk/gtktext.h>
+#include <gtk/gtkeditable.h>
 #include <gdk/gdkkeysyms.h>
+#include <gdk/gdk.h>
+#include <gdk/gdkprivate.h>
 #if defined(_WIN32)
 # include <gdk/gdkprivate.h>
 # include <gdk/gdkwin32.h>
@@ -471,8 +475,9 @@ guint GUIIdleRemove(const guint id);
 
 
 /* GdkWindow Utilities */
+/*
 gint GUIWindowGetRefCount(GdkWindow *window);
-
+*/
 
 /* Window Manager (WM) Utilities */
 void GUISetWMIcon(
@@ -1762,9 +1767,9 @@ static gint GUIDNDTargetHighlightDrawCB(gpointer data)
 				/* Get the row height */
 				row_height = GTK_CLIST_ROW_HEIGHT_SET(clist) ?
 					clist->row_height : 0;
-				if((row_height <= 0) && (style->font != NULL))
+				if((row_height <= 0) && (gtk_style_get_font(style) != NULL))
 				{
-					GdkFont *font = style->font;
+					GdkFont *font = gtk_style_get_font(style);
 					row_height = font->ascent + font->descent;
 				}
 
@@ -1781,6 +1786,7 @@ static gint GUIDNDTargetHighlightDrawCB(gpointer data)
 				gtk_paint_focus(
 					style,
 					(GdkWindow *)drawable,
+					GTK_STATE_NORMAL,
 					NULL,			/* Entire area */
 					w,
 					NULL,			/* No detail */
@@ -1795,6 +1801,7 @@ static gint GUIDNDTargetHighlightDrawCB(gpointer data)
 	gtk_paint_focus(
 		style,
 		(GdkWindow *)drawable,
+		GTK_STATE_NORMAL,
 		NULL,				/* Entire area */
 		w,
 		NULL,				/* No detail */
@@ -3132,8 +3139,8 @@ GtkRcStyle *GUIRCStyleCopy(const GtkRcStyle *rcstyle)
 	}
 	tar_style->engine = src_style->engine;
 	tar_style->engine_data = src_style->engine_data;
-#endif
 	return(tar_style);
+#endif
 }
 
 /*
@@ -4027,6 +4034,7 @@ guint GUIIdleRemove(const guint id)
 /*
  *	Gets the GdkWindow's reference count.
  */
+/*
 gint GUIWindowGetRefCount(GdkWindow *window)
 {
 #if defined(_WIN32)
@@ -4037,7 +4045,7 @@ gint GUIWindowGetRefCount(GdkWindow *window)
 	);
 #endif
 }
-
+*/
 
 /*
  *	Sets the toplevel GdkWindow's WM (Window Manager) icon.
@@ -4143,6 +4151,7 @@ void GUISetWMIconFile(
  *	--iconic			Startup iconified
  *
  */
+#if 0
 void GUIWindowApplyArgs(
 	GtkWindow *w,
 	const gint argc, gchar **argv
@@ -4614,7 +4623,7 @@ TODO: Should not set this after GtkWindow has been realized
 
 #undef NEW_RCSTYLE_AS_NEEDED
 }
-
+#endif
 
 /*
  *	Checks if the argument is an argument that is handled by
@@ -7598,7 +7607,7 @@ static void GUIDNDSetDragIconFromWidgetNexus(
 	if(style == NULL)
 		return;
 
-	font = style->font;
+	font = gtk_style_get_font(style);
 	if(font != NULL)
 	{
 		font_ascent = font->ascent;
@@ -10674,7 +10683,7 @@ static void GUIEditablePopupMenuRecordUndo(GUIEditablePopupMenuData *d)
  */
 static void GUIEditablePopupMenuUpdate(GUIEditablePopupMenuData *d)
 {
-	GtkEditable *editable = GTK_EDITABLE(d->editable);
+	GtkOldEditable *editable = GTK_OLD_EDITABLE(d->editable);
 	const gboolean has_selection = editable->has_selection;
 	gboolean b;
 
@@ -10889,7 +10898,7 @@ void GUIEditableEndowPopupMenu(
 #elif defined(PROG_LANGUAGE_DUTCH)
 "Kopie"
 #elif defined(PROG_LANGUAGE_PORTUGUESE)
-"Cópia"
+"C?pia"
 #elif defined(PROG_LANGUAGE_NORWEGIAN)
 "Kopi"
 #else
@@ -10931,7 +10940,7 @@ void GUIEditableEndowPopupMenu(
 #elif defined(PROG_LANGUAGE_FRENCH)
 "Supprimer"
 #elif defined(PROG_LANGUAGE_GERMAN)
-"Löschen"
+"L?schen"
 #elif defined(PROG_LANGUAGE_ITALIAN)
 "Cancellare"
 #elif defined(PROG_LANGUAGE_DUTCH)

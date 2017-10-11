@@ -726,7 +726,7 @@ static void PDialogButtonCB(GtkWidget *widget, gpointer data)
 				    g_snprintf(
 					fmt_str, sizeof(fmt_str),
 					"%%.%if", 
-					range->digits
+					gtk_range_get_round_digits(range)	/*range->digits*/
 				    );
 				    d->response_value[i] = g_strdup_printf(
 					fmt_str,
@@ -2556,7 +2556,7 @@ const gchar *PDialogGetPromptValue(const gint prompt_num)
 			g_snprintf(
 			    fmt_str, sizeof(fmt_str),
 			    "%%.%if",
-			    range->digits
+				gtk_range_get_round_digits(range)	/*range->digits*/
 			);
 			g_snprintf(
 			    num_str, sizeof(num_str),
