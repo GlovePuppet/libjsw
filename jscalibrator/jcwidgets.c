@@ -170,6 +170,7 @@ gint JCCreateRepresentativeLayoutWidgets(
 	    GTK_SIGNAL_FUNC(JCCalibToggleCB),
 	    (gpointer)jc
 	);
+#if 0
 	gtk_signal_connect(
 	    GTK_OBJECT(w), "enter_notify_event",
 	    GTK_SIGNAL_FUNC(JCEnterNotifyEventCB),
@@ -180,6 +181,7 @@ gint JCCreateRepresentativeLayoutWidgets(
 	    GTK_SIGNAL_FUNC(JCLeaveNotifyEventCB),
 	    (gpointer)jc
 	);
+#endif
 	gtk_widget_show(w);  
 
 
@@ -517,6 +519,7 @@ gint JCCreateLogicalLayoutWidgets(
 		    GTK_OBJECT(w), "clicked",
 		    GTK_SIGNAL_FUNC(JCCalibToggleCB), (gpointer)jc
 		);
+#if 0
 		gtk_signal_connect(
 		    GTK_OBJECT(w), "enter_notify_event",
 		    GTK_SIGNAL_FUNC(JCEnterNotifyEventCB), (gpointer)jc
@@ -525,6 +528,7 @@ gint JCCreateLogicalLayoutWidgets(
 		    GTK_OBJECT(w), "leave_notify_event",
 		    GTK_SIGNAL_FUNC(JCLeaveNotifyEventCB), (gpointer)jc
 		);
+#endif
 		gtk_widget_show(w);
 
 
@@ -722,8 +726,6 @@ gint JCCreateLogicalLayoutWidgets(
 		    GTK_SIGNAL_FUNC(JCLeaveNotifyEventCB), (gpointer)jc
 		);
 		gtk_widget_show(w);
-
-
 		/* Flip axis values check */
 		ll_axis->flipped_check = w = gtk_check_button_new_with_label(
 		    "Flip"
@@ -738,6 +740,7 @@ gint JCCreateLogicalLayoutWidgets(
 		    GTK_OBJECT(w), "clicked",
 		    GTK_SIGNAL_FUNC(JCCalibFlipCheckCB), (gpointer)jc
 		);
+#if 0
 		gtk_signal_connect(
 		    GTK_OBJECT(w), "enter_notify_event",
 		    GTK_SIGNAL_FUNC(JCEnterNotifyEventCB), (gpointer)jc
@@ -746,9 +749,8 @@ gint JCCreateLogicalLayoutWidgets(
 		    GTK_OBJECT(w), "leave_notify_event",
 		    GTK_SIGNAL_FUNC(JCLeaveNotifyEventCB), (gpointer)jc
 		);
+#endif
 		gtk_widget_show(w);
-
-
 		/* Is hat check */
 		ll_axis->is_hat_check = w = gtk_check_button_new_with_label(
 		    "Hat"
@@ -763,6 +765,7 @@ gint JCCreateLogicalLayoutWidgets(
 		    GTK_OBJECT(w), "clicked",
 		    GTK_SIGNAL_FUNC(JCCalibIsHatCheckCB), (gpointer)jc
 		);
+#if 0
 		gtk_signal_connect(
 		    GTK_OBJECT(w), "enter_notify_event",
 		    GTK_SIGNAL_FUNC(JCEnterNotifyEventCB), (gpointer)jc
@@ -771,6 +774,7 @@ gint JCCreateLogicalLayoutWidgets(
 		    GTK_OBJECT(w), "leave_notify_event",
 		    GTK_SIGNAL_FUNC(JCLeaveNotifyEventCB), (gpointer)jc
 		);
+#endif
 		gtk_widget_show(w);
 
 

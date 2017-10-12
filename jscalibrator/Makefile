@@ -59,8 +59,8 @@ PREFIX = /usr
 #CFLAGS = -Wall -O -g \
 #         `gtk-config --cflags`
 
-CFLAGS = -Wall -O6 -fomit-frame-pointer -funroll-loops -ffast-math \
-         `gtk-config --cflags`
+CFLAGS = -Wall -O6 -DGTK_ENABLE_BROKEN -fomit-frame-pointer -funroll-loops -ffast-math \
+         `pkg-config --cflags gtk+-2.0`
 
 CPPFLAGS = -D__cplusplus
 
@@ -76,7 +76,7 @@ CPPFLAGS = -D__cplusplus
 #   to the LIB line depending on what you have set in the CFLAGS line
 #   farther above.
 #
-LIBS = -ljsw `gtk-config --libs`
+LIBS = -ljsw `pkg-config --libs gtk+-2.0`
 
 # Library Directories:
 #
