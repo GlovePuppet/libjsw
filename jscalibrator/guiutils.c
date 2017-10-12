@@ -10898,7 +10898,7 @@ void GUIEditableEndowPopupMenu(
 #elif defined(PROG_LANGUAGE_DUTCH)
 "Kopie"
 #elif defined(PROG_LANGUAGE_PORTUGUESE)
-"C?pia"
+"Cópia"
 #elif defined(PROG_LANGUAGE_NORWEGIAN)
 "Kopi"
 #else
@@ -10940,7 +10940,7 @@ void GUIEditableEndowPopupMenu(
 #elif defined(PROG_LANGUAGE_FRENCH)
 "Supprimer"
 #elif defined(PROG_LANGUAGE_GERMAN)
-"L?schen"
+"Löschen"
 #elif defined(PROG_LANGUAGE_ITALIAN)
 "Cancellare"
 #elif defined(PROG_LANGUAGE_DUTCH)
